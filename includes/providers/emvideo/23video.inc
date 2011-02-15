@@ -3,7 +3,7 @@
 
 /**
  * @file media_23video/includes/providers/23video.inc
- *   Provide support for the 23video provider to the emfield.module.
+ *   Provide support for the 23 Video provider to the emfield.module.
  */
 
 /**
@@ -52,7 +52,7 @@ function emvideo_23video_settings() {
  * provides an array to be serialised and made available with $item elsewhere
  */
 function emvideo_23video_data($field, $item) {
-  $xml = emfield_request_xml('23video', 'http://reinvent.23video.com/oembed', array('url'=>'http://reinvent.23video.com' . $item['value']), TRUE, FALSE, $item['value']);
+  $xml = emfield_request_xml('23video', 'http://' . media_23video_variable_get('domain') . '/oembed', array('url'=>'http://' . media_23video_variable_get('domain') . $item['value']), TRUE, FALSE, $item['value']);
   $html = $xml['OEMBED']['HTML'][0];
   $data = array();
   $data['emvideo_23video_version'] = EMVIDEO_23VIDEO_DATA_VERSION;
@@ -78,7 +78,7 @@ function emvideo_23video_data($field, $item) {
  */
 function emvideo_23video_extract($embed = '') {
   return array(
-    '@reinvent.23video\.com([^\?]+)@i',
+    '@' . media_23video_variable_get('domain') . '([^\?]+)@i',
   );
 }
 
@@ -91,19 +91,19 @@ function emvideo_23video_extract($embed = '') {
  *    a string containing the URL to view the video at the original provider's site
  */
 function emvideo_23video_embedded_link($video_code) {
-  return 'http://reinvent.23video.com' . $video_code;
+  return 'http://' . media_23video_variable_get('domain') . $video_code;
 }
 
 /**
  * The embedded flash displaying the 23video video.
  */
 function theme_emvideo_23video_flash($item, $width, $height, $autoplay) {
-  $req = array('url'      => 'http://reinvent.23video.com' . $item['value'],
+  $req = array('url'      => 'http://' . media_23video_variable_get('domain') . $item['value'],
                'width'    => $width,
                'height'   => $height,
                'autoplay' => $autoplay
                );
-  $xml = emfield_request_xml('23video', 'http://reinvent.23video.com/oembed', $req, TRUE, FALSE, $item['value']);
+  $xml = emfield_request_xml('23video', 'http://' . media_23video_variable_get('domain') . '/oembed', $req, TRUE, FALSE, $item['value']);
   return($xml['OEMBED']['HTML'][0]);
 }
 
