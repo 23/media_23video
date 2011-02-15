@@ -12,7 +12,7 @@ To install the module, copy in the `media_23video` folder to `modules/` and inst
 
 The code in this module is an unholy merge of stuff from these two existing emfield modules:
 
-* http://drupal.org/project/media_vimeo
-* http://drupal.org/project/media_hulu
+* [Media: Vimeo](http://drupal.org/project/media_vimeo) -- for it's structure and variable support
+* [Media: Hulu](http://drupal.org/project/media_hulu) -- for it's simple implementation of oEmbed
 
 Maintained by [23](http://www.23video.com) and [Steffen Tiedemann Christensen](http://refresh.dk)
