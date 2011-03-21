@@ -56,8 +56,17 @@ function emvideo_23video_data($field, $item) {
   $data = array();
   $data['emvideo_23video_version'] = EMVIDEO_23VIDEO_DATA_VERSION;
   if (isset($xml['OEMBED']['THUMBNAIL_URL'])) {
-    $data['thumbnail'] = $xml['OEMBED']['THUMBNAIL_URL'][0];
-  } else {
+    $data['thumbnail_orig'] = $xml['OEMBED']['THUMBNAIL_URL'][0];
+    $data['video_id'] = $xml['OEMBED']['PHOTO_ID'][0];
+    // If enabled, try to download thumbnail locally.
+    if (media_23video_variable_get('download_thumb')) {
+      $file = _emvideo_23video_fetch_thumbnail('23video/' . $data['video_id'] . '.jpeg', $data['thumbnail_orig']);
+      if ($file) {
+        $data['thumbnail'] = $file;
+      }
+    }
+  }
+  else {
     $data['thumbnail'] = 'http://www.23video.com/resources/23-style/graphics/void.gif';
   }
   $data['embed'] = $html;
@@ -108,7 +117,7 @@ function theme_emvideo_23video_flash($item, $width, $height, $autoplay) {
 
 /**
  * hook emvideo_PROVIDER_thumbnail
- * returns the external url for a thumbnail of a specific video
+ * returns the local url for a thumbnail of a specific video if possible or else external.
  * TODO: make the args: ($embed, $field, $item), with $field/$item provided if we need it, but otherwise simplifying things
  *  @param $field
  *    the field of the requesting node
@@ -118,7 +127,7 @@ function theme_emvideo_23video_flash($item, $width, $height, $autoplay) {
  *    a URL pointing to the thumbnail
  */
 function emvideo_23video_thumbnail($field, $item, $formatter, $node, $width, $height) {
-  return $item['data']['thumbnail'];
+  return isset($item['data']['thumbnail']) ? $item['data']['thumbnail'] : $item['data']['thumbnail_orig'];
 }
 
 /**
@@ -177,4 +186,21 @@ function emvideo_23video_emfield_subtheme() {
     return $themes;
 }
 
+function _emvideo_23video_fetch_thumbnail($filename, $image_url) {
+  $result = drupal_http_request($image_url);
+
+  if ($result->code == 200) {
+    // get the folder for the final location of this preset...
+    $dir = file_directory_path() . '/' . dirname($filename);
+
+    // Build the destination folder tree if it doesn't already exists.
+    if (!file_check_directory($dir, FILE_CREATE_DIRECTORY) &&
+        !mkdir($dir, 0775, TRUE)) {
+      return 0;
+    }
+
+    return file_save_data($result->data, $filename, FILE_EXISTS_REPLACE);
+  }
+  return 0;
+}
 

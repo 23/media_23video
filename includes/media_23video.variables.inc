@@ -114,7 +114,8 @@ function media_23video_variable_default($name = NULL) {
 
   if (!isset($defaults)) {
     $defaults = array(
-      'domain' => 'reinvent.23video.com'
+      'domain' => 'reinvent.23video.com',
+      'download_thumb' => TRUE,
     );
   }
 

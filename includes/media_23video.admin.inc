@@ -28,5 +28,13 @@ function media_23video_admin_form() {
     '#title' => t('Domain for your 23 Video site'),
     '#default_value' => media_23video_variable_get('domain'),
   );
+
+  $form[media_23video_variable_name('download_thumb')] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Download thumbnail locally'),
+    '#description' => t('This allows imagecache to be used to display the image'),
+    '#default_value' => media_23video_variable_get('download_thumb'),
+  );
+
   return $form;
 }
