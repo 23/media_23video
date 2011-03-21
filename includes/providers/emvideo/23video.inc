@@ -138,7 +138,7 @@ function emvideo_23video_thumbnail($field, $item, $formatter, $node, $width, $he
  *  @return
  *    the html of the embedded video
  */
-function emvideo_23video_video($embed, $width, $height, $field, $item, &$node, $autoplay) {
+function emvideo_23video_video($embed, $width, $height, $field, $item, $node, $autoplay) {
   $output = theme('emvideo_23video_flash', $item, $width, $height, $autoplay);
   return $output;
 }
