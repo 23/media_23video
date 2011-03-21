@@ -1,5 +1,4 @@
 <?php
-// $Id: media_23video.admin.inc,v 1.1 2010/09/17 16:16:33 aaron Exp $
 
 /**
  * @file media_23video/includes/media_23video.admin.inc

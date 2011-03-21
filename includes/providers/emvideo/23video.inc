@@ -1,5 +1,4 @@
 <?php
-// $Id: 23video.inc,v 1.1.2.3 2010/09/23 21:09:42 aaron Exp $
 
 /**
  * @file media_23video/includes/providers/23video.inc
@@ -160,7 +159,6 @@ function emvideo_23video_video($embed, $width, $height, $field, $item, $node, $a
  *    the html of the embedded video
  */
 function emvideo_23video_preview($embed, $width, $height, $field, $item, &$node, $autoplay) {
-  error_log('emvideo_23video_preview');
   $output = theme('emvideo_23video_flash', $item, $width, $height, $autoplay);
   return $output;
 }
@@ -169,7 +167,6 @@ function emvideo_23video_preview($embed, $width, $height, $field, $item, &$node,
  * Implementation of hook_emfield_subtheme.
  */
 function emvideo_23video_emfield_subtheme() {
-  error_log('emvideo_23video_emfield_subtheme');
     $themes = array(
         'emvideo_23video_flash'  => array(
             'arguments' => array('item' => NULL, 'width' => NULL, 'height' => NULL, 'autoplay' => NULL),

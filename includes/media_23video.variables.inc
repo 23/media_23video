@@ -1,5 +1,4 @@
 <?php
-// $Id: media_23video.variables.inc,v 1.1.2.1 2010/09/23 21:04:55 aaron Exp $
 
 /**
  * @file media_23video/includes/media_23video.variables.inc
